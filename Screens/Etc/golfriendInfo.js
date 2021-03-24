@@ -4,10 +4,8 @@ import { Image, Modal,  StatusBar, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export default class golfriend extends Component {
-    render() {
-
-        const { navigation } = this.props
+const golfriend =({navigation})=>{
+    
         return ( 
                 <View style={styles.container}> 
                     <View style ={styles.safeAreaView}>
@@ -17,7 +15,7 @@ export default class golfriend extends Component {
                     </View>  
                     <View style={styles.informationContainer}>
                         <View style={styles.round}>
-                        <Image source={require('C:/Users/aa/Desktop/GolFriend/golfriend-front-update/assets/Golfriend.png')} style={{marginTop:-35,width:250, height:160,position:'relative'}} />
+                        <Image source={require('C:/Users/pulsm/Desktop/GolfFrontend/GolfriendFront/assets/Golfriend.png')} style={{marginTop:-35,width:250, height:160,position:'relative'}} />
                         </View>
                         <View style={styles.textView}>
                             <Text style={styles.textstyle}>
@@ -31,8 +29,9 @@ export default class golfriend extends Component {
                     </View>
                 </View>
         );
-    }
-}
+};
+
+export default golfriend;
 
 
 

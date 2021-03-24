@@ -11,6 +11,7 @@ import MainNavigator from './Screens/MainNavigator';
 import SignInNavigator from './Screens/SignInNavigator';
 import SplashScreen from './Screens/SplashScreen';
 import { createStackNavigator } from '@react-navigation/stack';
+import RootStackScreen from './Screens/Etc/RootStackNavigator';
 
 const SERVER_IP = "121.138.83.4";
 
@@ -123,12 +124,14 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer>    
+      <NavigationContainer>
+          <RootStackScreen />
+{/*     
         {state.userToken == null ? (
           <SignInNavigator />
           ) : (
-          <MainNavigator />
-        )}
+            <MainNavigator />
+        )} */}
       </NavigationContainer>
     </AuthContext.Provider>
   );

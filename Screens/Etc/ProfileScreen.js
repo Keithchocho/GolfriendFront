@@ -1,4 +1,4 @@
-import { useNavigation } from '@react-navigation/core';
+
 import React, { Component, useContext, useEffect, useState } from 'react';
 import { Modal, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -61,7 +61,7 @@ const ProfileScreen =({navigation}) =>{
                     <View style ={styles.smallView}>
                         <Icon name="information-circle-outline" size={30}style={styles.iconStyle}/>
                         <Text style={styles.informationText}>Golfriend 소개</Text>
-                        <TouchableOpacity onPress={()=>navigation.navigate('GolFriendInfo')}>
+                        <TouchableOpacity onPress={()=>{navigation.navigate('NoDoubt')}}>
                             <Icon name="chevron-forward-outline" size={30}style={styles.arrowIcon}/>
                         </TouchableOpacity>
                     </View>

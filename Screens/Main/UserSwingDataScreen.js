@@ -33,9 +33,12 @@ const UserSwingDataScreen = ({navigation}) =>{
         
        <ScrollView style={styles.container}>
             <View style={styles.InstaContainer}> 
-                <Text style={styles.instaHeadText}> @@ 님의 스윙영상</Text>
+                <View style ={styles.userIconBox}>
+                    <View style={styles.userIcon} />
+                    <Text style={styles.instaHeadText}> Keith 님의 스윙영상</Text>
+                </View>
                 <View style={styles.instaVideoContainer}>
-                    <Video
+                    {/* <Video
                             ref={video}
                             style={styles.video}
                             source={{
@@ -46,24 +49,27 @@ const UserSwingDataScreen = ({navigation}) =>{
                             isMuted
                             isLooping
                             onPlaybackStatusUpdate={status => setStatus(() => status)}
-                        />
+                        /> */}
                 </View>
                 <View style ={styles.iconContainer}> 
                     <TouchableOpacity onPress={()=>{setLikeColor(true), setLike(like + 1)}}>
                         <Icon name ={ likeColor? "heart" : "heart-outline" }size={30} color={likeColor ? "#ff0000" : "#000"} style={{marginLeft:10,marginTop:5}}/>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress ={()=> {navigation.navigate('CommentScreen')}}>
                         <Icon name ="chatbubbles-outline" size={30}style={{marginLeft:10,marginTop:5}}/>
                     </TouchableOpacity>
-                    <TouchableOpacity>
-                        <Icon name ="share-outline" size ={30}style={{marginLeft:280,marginTop:5}}/>
+                    <TouchableOpacity >
+                        <Icon name ="ios-share-social" size ={30}style={{marginLeft:280,marginTop:5}}/>
                     </TouchableOpacity>
                 </View>
-                <Text style={{marginLeft:10}}> 좋아요 { like } 개</Text>
+                <Text style={{marginLeft:10}}> { like } Likes</Text>
             </View>
 
             <View style={styles.InstaContainer}> 
-                <Text style={styles.instaHeadText}> 35king 님의 스윙영상</Text>
+                <View style ={styles.userIconBox}>
+                    <View style={styles.userIcon} />
+                    <Text style={styles.instaHeadText}> 35king 님의 스윙영상</Text>
+                </View>
                 <View style={styles.instaVideoContainer}>
                     <Video
                             ref={video}
@@ -82,7 +88,7 @@ const UserSwingDataScreen = ({navigation}) =>{
                     <TouchableOpacity onPress={()=>{setLikeColor(true), setLike(like + 1)}}>
                         <Icon name ={ likeColor? "heart" : "heart-outline" }size={30} color={ likeColor ? "#ff0000" : "#000"} style={{marginLeft:10,marginTop:5}}/>
                     </TouchableOpacity>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress ={()=> {navigation.navigate('CommentScreen')}}>
                         <Icon name ="chatbubbles-outline" size={30}style={{marginLeft:10,marginTop:5}}/>
                     </TouchableOpacity>
                     <TouchableOpacity>
@@ -131,21 +137,35 @@ const styles = StyleSheet.create({
   },
   InstaContainer:{
       width:"100%",
-      height:500,
+      height:650,
       marginTop:15,
-      borderBottomWidth:1
+      borderBottomWidth:1,
+      marginBottom:30
   },
   instaHeadText:{
       fontSize:15,
-      marginLeft:31,
+      marginLeft:10,
       marginTop:10
   },
   instaVideoContainer:{
       width:"100%",
       height:380,
-      marginTop:10
+      marginTop:10,
+      backgroundColor:"rgba(56, 56, 56, 0.13)"
   },
   iconContainer:{
-      flexDirection:"row"
+      flexDirection:"row",
+      marginTop:15
+  },
+  userIconBox:{
+      flexDirection:"row",
+      marginBottom:10
+  },
+  userIcon:{
+      height:50,
+      width:50,
+      borderRadius:100,
+      borderWidth:1,
+      marginLeft:20
   }
 });

@@ -21,18 +21,18 @@ import EtcStackScreen from './Etc/EtcNavigator';
 
 // import VideoRecord from '../Screens/VideoRecordScreen';
 
-const TestStack = createStackNavigator();
-const TestScreen = () => {
-  return (
-    <TestStack.Navigator headerMode='none' >
-      <TestStack.Screen name="UserLatestSwing" component={UserLatestSwingScreen} />
-      <TestStack.Screen name="Profile" component={ProfileScreen} />
-      <TestStack.Screen name="GolFriendInfo" component={golfriend} />
+// const TestStack = createStackNavigator();
+// const TestScreen = () => {
+//   return (
+//     <TestStack.Navigator headerMode='none' >
+//       <TestStack.Screen name="UserLatestSwing" component={UserLatestSwingScreen} />
+//       <TestStack.Screen name="Profile" component={ProfileScreen} />
+//       <TestStack.Screen name="GolFriendInfo" component={golfriend} />
       
       
-    </TestStack.Navigator>
-  )
-}
+//     </TestStack.Navigator>
+//   )
+// }
 
 const MainStack = createBottomTabNavigator();
 const MainNavigator = () => {
@@ -64,7 +64,7 @@ const MainNavigator = () => {
           }
         }} 
     >
-      <MainStack.Screen name = "UserLatestSwing" component ={TestScreen} 
+      <MainStack.Screen name = "UserLatestSwing" component ={UserLatestSwingScreen} 
         options={{ 
           title: "최근 분석",
           tabBarIcon: ({ focused, color }) => {
