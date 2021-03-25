@@ -126,6 +126,7 @@ export default function App() {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
           <RootStackScreen />
+        
 {/*     
         {state.userToken == null ? (
           <SignInNavigator />

@@ -15,7 +15,7 @@ const golfriend =({navigation})=>{
                     </View>  
                     <View style={styles.informationContainer}>
                         <View style={styles.round}>
-                        <Image source={require('C:/Users/pulsm/Desktop/GolfFrontend/GolfriendFront/assets/Golfriend.png')} style={{marginTop:-35,width:250, height:160,position:'relative'}} />
+                        <Image source={require('../../assets/Golfriend.png')} style={{marginTop:-35,width:250, height:160,position:'relative'}} />
                         </View>
                         <View style={styles.textView}>
                             <Text style={styles.textstyle}>
