@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { ActivityIndicator, Image, Keyboard, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import { event } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styled from 'styled-components';
 
@@ -11,62 +12,58 @@ import useInputV2 from './useInputV2';
 
 
 
-const DATA = [
-    { 'name' : 'Keith',
-      'Text' : '1' }, 
-    {'name': '35king',
-     "Text": " 2"}, 
-    { 'name': '감자국SB',
-    "Text": " 3" },
-    { 'name': '김니꾸',
-    "Text": " 4" },
-    { 'name': '뚱이',
-    "Text": " 5" }];
 
 
 
 
-const Loader =()=>{
-    return(
-        <View style={{flex:1, justifyContent: "center", alignItems: "center" , backgroundColor:"#FFFFFF"}}>
-              <ActivityIndicator color={"#000"} />
-        </View>
-    );
-};
 
 
 const commentScreen = ({navigation}) => {
+    
+    const [names, setNames] = useState([
+    {   name :'홍길동',
+        Text : '1' },
+   {   name :'고길동',
+        Text : '2' }]);
 
     const [commenting, setCommenting ] = useState(false);
-    const commentInput =  useInputV2(" ");
+    const [likeColor, setLikeColor ] = useState(false);
+  
     const [comment, setComment ] = useState(null);
+    const [ inputText , setInputText ] = useState('');
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        setData(names);
+    }, [])
+    const [nextId , setNextId] =useState('민제킴');
+    const onChangeText  =  e => setInputText(e);
+    const commentList = names.map((item, index)=> <Text key={index} >{item.name} {item.Text} <Icon onPress ={()=>{setLikeColor(true)}} 
+    name ={ likeColor? "heart" : "heart-outline" }size={15} color={likeColor ? "#ff0000" : "#000"}  /></Text>);
+                                            
+    
+    const onClick =()=>{
+        const nextText = names.concat({
+                    name : '김민제',
+                    Text : inputText
+                
+        });
+        setNames(nextText);
+        setInputText('');
+    };
+      
+        // setData([
+        //     ...data,
+        //     {
+        //         'name': '김민제',
+        //         'Text': inputText
+        //     },
+           
+        // ]);
+        // setInputText('');
+    // };
 
+    
 
-    const addComment = async () =>{
-        if(commentInput.value !== " " && commenting == false ){
-            setCommenting(true);
-            try {
-                const { data : {
-                    addComment
-                }} = await 
-                Keyboard.dismiss();
-            } catch(e){
-                console.log(e)
-            } finally {
-                setCommenting(false)
-            }
-        }
-    }
-    const KeyboardDidHide = () =>{
-        navigation.goBack();
-    }
-
-    useEffect(()=> {
-        Keyboard.addListener('keyboardDidHide', KeyboardDidHide);
-        return () => {
-            Keyboard.removeListener('keyboardDidHide', KeyboardDidHide);
-        }
-    },[])
 
 
     return(
@@ -86,14 +83,15 @@ const commentScreen = ({navigation}) => {
                         <View style ={{flex:1}}>
                             <TouchableOpacity onPress={Keyboard.dismiss} style={{height:"100%"}} />
                         </View>
-                        {DATA.map((item, index) => 
                             <View style ={styles.EditorContainer}>
-                                <Text key={item}>{item.name}</Text>
-                                <TextInput  style={{flex: 1}} multiline placeholder={"댓글 달기.."} autoFocus={true} key={DATA.index}>  {item.Text}</TextInput> 
-                                <TouchableOpacity style={{width: 50}}>
+                                <Text></Text>
+                                <TextInput onChangeText={onChangeText} value={inputText} style={{flex: 1}} multiline placeholder={"댓글 달기.."}></TextInput> 
+                                <TouchableOpacity style={{width: 50}} onPress={onClick}>
                                     <Text style={{color:"#00bfff" }}>게시</Text>
                                 </TouchableOpacity>
-                            </View>)}
+                               
+                            </View>
+                            {commentList}
                    
                     </View>
 
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
     },
     ScrollViewBox:{
         width:"90%",
-        marginTop:10
+        marginTop:10,
     },
 
     EditorContainer:{
@@ -142,7 +140,6 @@ const styles = StyleSheet.create({
 
     },
     container:{
-        backgroundColor:"rgba(0,0,0,0.5)",
         flex:1
     }
 });

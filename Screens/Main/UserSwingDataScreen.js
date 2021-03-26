@@ -8,13 +8,17 @@ import {
     SafeAreaView,
     StyleSheet, 
     View, 
-    Text,  
+    Text,
+    KeyboardAvoidingView,  
+    Keyboard,
+    TextInput,
+    FlatList
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import Icon from 'react-native-vector-icons/Ionicons';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { Video, AVPlaybackStatus } from 'expo-av';
-import { useState } from "react";
+import { useState,  useEffect } from "react";
 import { set } from "react-native-reanimated";
 
 const DATA = [{ 'user1' : 'Keith' }, {'user2': '35king'}, { 'user3': '감자국SB' },{ 'uesr4': '김니꾸' },{ 'user5': '뚱이' }];
@@ -49,7 +53,45 @@ const UserSwingDataScreen = ({navigation}) =>{
     const [ status, setStatus ] = React.useState({});
     const [likeColor, setLikeColor ] = useState(false);
     let [ like, setLike ] = useState(0);
+
+
+    const [commenting, setCommenting ] = useState(false);
+  
+    const [comment, setComment ] = useState(null);
+    const [ inputText , setInputText ] = useState('');
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        setData(DATA);
+    }, [])
+
+    const onChange  =  e => setInputText(e);
+    const commentList = data.map((item, index)=> <Text key={item} >{item.name}  {item.Text}</Text>);
+                                            
     
+    const onClick =()=>{
+    //     const nextText = DATA.concat({
+                
+    //                 'name' : '김민제',
+    //                 'Text' : inputText
+                
+    //     });
+    //     setInputText(nextText);
+    //     setInputText('');
+    // };
+      
+        setData([
+            ...data,
+            {
+                'name': '김민제',
+                'Text': inputText
+            },
+           
+        ]);
+        setInputText('');
+    };
+    
+
+
   
 
     return(
@@ -62,7 +104,7 @@ const UserSwingDataScreen = ({navigation}) =>{
             </TouchableOpacity>
         </View>         
         
-       <ScrollView style={styles.container}>
+       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
             <View style={styles.InstaContainer}> 
                 <View style ={styles.userIconBox}>
                     <View style={styles.userIcon} />
@@ -94,6 +136,34 @@ const UserSwingDataScreen = ({navigation}) =>{
                     </TouchableOpacity>
                 </View>
                 <Text style={{marginLeft:10}}> { like } Likes</Text>
+
+                <FlatList 
+                style={styles.ScrollViewBox}
+                >
+                    {/* {DATA.map((item, index) => ({item[0]}))}  */}
+                    
+                <KeyboardAvoidingView>
+                    <View style ={styles.CommentContainer}>
+                        <View style ={{flex:1}}>
+                            <TouchableOpacity onPress={Keyboard.dismiss} style={{height:"100%"}} />
+                        </View>
+                            <View style ={styles.EditorContainer}>
+                                <TextInput onChangeText={onChange} value={inputText} style={{flex: 1}} multiline placeholder={"댓글 달기.."}></TextInput> 
+                                <TouchableOpacity style={{width: 50}} onPress={onClick}>
+                                    <Text style={{color:"#00bfff" }}>게시</Text>
+                                </TouchableOpacity>
+                               
+                            </View>
+                            {commentList}
+                   
+                    </View>
+
+                </KeyboardAvoidingView>    
+            
+                
+                    
+                
+            </FlatList>
             </View>
 
         </ScrollView>
@@ -166,5 +236,38 @@ const styles = StyleSheet.create({
       borderRadius:100,
       borderWidth:1,
       marginLeft:20
-  }
+  },
+  maincontainer:{
+    flex:1,
+    backgroundColor:"#FFF",
+    justifyContent:'center',
+    alignItems:'center'
+},
+ScrollViewBox:{
+    width:"90%",
+    marginTop:10
+},
+
+EditorContainer:{
+    padding:5,
+    minHeight:65,
+    borderTopColor:"#a9a9a9",
+    borderTopWidth:0.25,
+    flexDirection:'row',
+    alignItems:'center',
+    backgroundColor:"#FFF"
+},
+AvatarImage:{
+    height:30,
+    width:30,
+    borderRadius:15,
+    marginTop:10,
+    marginLeft:10,
+    padding:10,
+    borderWidth:1
+
+},
+commentContainer:{
+    flex:1
+}
 });
